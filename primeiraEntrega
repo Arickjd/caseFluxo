@@ -1,0 +1,135 @@
+class Usuario {
+    constructor(ID_us, nome, end, historico) {
+        this.ID_us = ID_us;
+        this.nome = nome;
+        this.end = end;
+        this.historico = historico;
+    }
+}
+
+class Propriedade {
+    constructor(ID_prop, nome, end, capacidade, numero_q, preco) {
+        this.ID_prop = ID_prop;
+        this.nome = nome;
+        this.end = end;
+        this.capacidade = capacidade;
+        this.numero_q = numero_q;
+        this.preco = preco;
+    }
+}
+
+class Reserva {
+    constructor(ID_res, ID_us, ID_prop, date_in, date_out, valor, status_pag) {
+        this.ID_res = ID_res;
+        this.ID_us = ID_us;
+        this.ID_prop = ID_prop;
+        this.date_in = date_in;
+        this.date_out = date_out;
+        this.valor = valor;
+        this.status_pag = status_pag;
+    }
+}
+
+class Anuncio {
+    constructor(ID_anu, ID_prop, titulo, descricao, status) {
+        this.ID_anu = ID_anu;
+        this.ID_prop = ID_prop;
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.status = status;
+    }
+}
+
+class Sistema {
+    constructor() {
+        this.usuarios = [];
+        this.propriedades = [];
+        this.reservas = [];
+        this.anuncios = [];
+    }
+
+    cadastrarUsuario(ID_us, nome, end) {
+        const usuario = new Usuario(ID_us, nome, end);
+        this.usuarios.push(usuario);
+        return usuario;
+    }
+
+    cadastrarPropriedade(ID_prop, nome, end, capacidade, numero_q, preco) {
+        const propriedade = new Propriedade(ID_prop, nome, end, capacidade, numero_q, preco);
+        this.propriedades.push(propriedade);
+        return propriedade;
+    }
+
+    fazerReserva(ID_res, ID_us, ID_prop, date_in, date_out, valor, status_pag) {
+        const reserva = new Reserva(ID_res, ID_us, ID_prop, date_in, date_out, valor, status_pag);
+        this.reservas.push(reserva);
+        return reserva;
+    }
+
+    criarAnuncio(ID_anu, ID_prop, titulo, descricao, status) {
+        const anuncio = new Anuncio(ID_anu, ID_prop, titulo, descricao, status);
+        this.anuncios.push(anuncio);
+        return anuncio;
+    }
+}
+
+//Login do Funcionario:
+const funcionarioCadastrados = [
+    { login: 'funcionario1', senha: 'senha123' },
+    { login: 'funcionario2', senha: 'senha456' }
+  ];
+
+const prompt = require("prompt-sync")({sigint: true})
+
+// Metodo 1 - Fazer Login
+function fazerLogin() {
+    const login = prompt('Login: ');
+    const senha = prompt('senha: ');
+  
+    const FuncionarioValido = funcionarioCadastrados.find(
+      u => u.login === login && u.senha === senha
+    );
+  
+    if (FuncionarioValido) {
+      console.log('Login bem-sucedido!');
+    } else {
+      console.log('Usuário ou senha inválidos. Tente novamente.');
+    }
+  }
+
+// Metodo 2 - Fazer Cadastro
+
+function fazerCadastro() {
+    const novoFuncionario = prompt('Digite o novo funcionario:');
+    const novaSenha = prompt('Digite a nova senha:');
+  
+    const funcionarioExiste = funcionarioCadastrados.find(
+      u => u.login === novoFuncionario );
+  
+    if (funcionarioExiste) {
+      console.log('funcionario já existe.');
+    } else {
+      usuariosCadastrados.push({ login: novoFuncionario, senha: novaSenha });
+      console.log('Cadastro realizado!');
+    }
+  }
+
+
+// Metodo 3 - Sair do sistema
+// process.exit();
+
+
+// Iniciando home do sistema
+
+console.clear();
+
+console.log('Sistema de reserva Pousada Eclispe - Pagina Inicial \n')
+console.log('Funcionario não Logado: \n 1.Fazer Login \n 2.Fazer cadastro \n 3.Sair do programa \n')
+let operacao = prompt('Digite qual operação deseja realizar: ');
+if (operacao === 1){
+    fazerLogin();
+} else if (operacao === 2){
+    fazerCadastro();
+}else if (operacao === 3){
+    process.exit();
+}
